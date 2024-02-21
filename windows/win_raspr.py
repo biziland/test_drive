@@ -26,7 +26,7 @@ def get_pack_table(fp):
         cursor.execute(query)
         all_data = cursor
     
-    if (all_data):
+    if all_data:
         table = tk.ttk.Treeview(fp,show='headings')
         heads = ['id', 'name', 'price', 'x1', 'y1', 'x2', 'y2']
         table['columns'] = heads
@@ -65,7 +65,7 @@ def get_kur_table(fp):
         cursor.execute(query)
         all_data = cursor
     
-    if (all_data):
+    if all_data:
         table = tk.ttk.Treeview(fp,show='headings')
         heads = ['id', 'name','x1', 'y1', 'v']
         table['columns'] = heads
@@ -108,10 +108,13 @@ def get_algo():
         cursor.execute(query)
         l_pack = cursor.fetchall()
     
-    res = thirdtry(l_kur,l_pack)
-    open_result(res)
-    set_table_pack(res)
-    set_table_kur(res)
+    if l_pack and l_kur:
+        res = thirdtry(l_kur,l_pack)
+        open_result(res)
+        set_table_pack(res)
+        set_table_kur(res)
+    else:
+        print("Свободных посылок или курьеров нет!")
 
 def set_table_pack(res):
     with sqlite3.connect('db/dostavka.db') as db:
@@ -120,6 +123,8 @@ def set_table_pack(res):
         for i in res:
             query = "UPDATE packages SET free = 0 WHERE id = ?"
             cursor.execute(query, (i[0],))
+        # query = "UPDATE packages SET free = 1"
+        # cursor.execute(query)
         
 def set_table_kur(res):
     with sqlite3.connect('db/dostavka.db') as db:
@@ -128,6 +133,8 @@ def set_table_kur(res):
         for i in res:
             query = "UPDATE kurier SET free = 0 WHERE id = ?"
             cursor.execute(query, (i[1],))
+        # query = "UPDATE kurier SET free = 1"
+        # cursor.execute(query)
 
 
 

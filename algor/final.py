@@ -50,11 +50,12 @@ def thirdtry(lk,lp):
         raspr = []
         count = 0
         prev_min_index = 0
+        hhh = max(max(row) for row in temp)
         for i in temp:
             max_value = max(i)
             if count!=0:
                 for j in temp:
-                    j[prev_min_index] = max_value
+                    j[prev_min_index] = hhh#max_value
             min_value = min(i)
             min_index = i.index(min_value)
             raspr.append((array_of_id[count],min_index))
@@ -84,7 +85,7 @@ def thirdtry(lk,lp):
         mas.append((array_pack[i[0]].id,array_kur[i[1]].id))
 
     for i in right_one:
-        print("Посылку номер ",array_pack[i[0]].id," посылку отнесёт курьер номер ", array_kur[i[1]].v, " за ", array_pack[i[0]].price)
+        print("Посылку номер ",array_pack[i[0]].id," посылку отнесёт курьер номер ", array_kur[i[1]].id, " за ", array_pack[i[0]].price)
     
     return mas
 

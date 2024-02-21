@@ -35,6 +35,28 @@ def delete_table():
     # Закрытие соединения
     conn.close()
 
+def update_table():
+    import sqlite3
 
-add_record()
+    # Подключение к базе данных
+    conn = sqlite3.connect('db/dostavka.db')
+
+    # Создание объекта курсора
+    cursor = conn.cursor()
+
+    # Удаление таблицы
+    cursor.execute("UPDATE packages SET free = 1")
+
+    # Применение изменений в базе данных
+    conn.commit()
+    cursor.execute("UPDATE kurier SET free = 1")
+
+    # Применение изменений в базе данных
+    conn.commit()
+
+    # Закрытие соединения
+    conn.close()
+
+
+update_table()
 # delete_table()
